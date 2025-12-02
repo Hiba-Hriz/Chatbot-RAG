@@ -18,6 +18,7 @@ Un chatbot intelligent basé sur l'architecture RAG (Retrieval-Augmented Generat
 - **Support multilingue** : Traitement des conversations en français
 
 ## 🏗️ Architecture
+
 <img width="753" height="882" alt="image" src="https://github.com/user-attachments/assets/dbdf3f14-5f8b-4d28-b732-183bc43ee074" />
 
 ## 📋 Prérequis
@@ -65,6 +66,6 @@ DB_USER=postgres
 DB_PASSWORD=votre_mot_de_passe_ici
 DB_PORT=5432
 ```
-### 4. 🎮 Utilisation
+### 🎮 Utilisation
 
 Lancer le chatbot
