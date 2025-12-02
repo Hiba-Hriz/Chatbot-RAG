@@ -3,7 +3,3 @@ venv/
 
 # Ignorer le fichier .env
 .env
-
-# Ignorer les fichiers Python compilés
-*.pyc
-__pycache__/
