@@ -4,7 +4,7 @@ Un chatbot intelligent basé sur l'architecture RAG (Retrieval-Augmented Generat
 
 ## 📋 Table des matières
 - [Fonctionnalités](#-fonctionnalités)
-- [Architecture](#-architecture)
+- [Architecture](#-Architecture)
 - [Prérequis](#-prérequis)
 - [Installation](#-installation)
 - [Utilisation](#-utilisation)
