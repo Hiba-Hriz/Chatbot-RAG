@@ -1,0 +1,186 @@
+<svg viewBox="0 0 1200 1400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond -->
+  <rect width="1200" height="1400" fill="#0f172a"/>
+  
+  <!-- Titre -->
+  <text x="600" y="50" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    Architecture RAG - Chatbot avec Embeddings
+  </text>
+  
+  <!-- PHASE 1 -->
+  <text x="100" y="120" font-size="24" font-weight="bold" fill="#c084fc">
+    Phase 1: Initialisation &amp; Indexation
+  </text>
+  
+  <!-- Étape 1: Source -->
+  <rect x="80" y="150" width="250" height="140" rx="10" fill="#2563eb"/>
+  <text x="205" y="180" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    1. Source de données
+  </text>
+  <text x="205" y="210" font-size="14" fill="#ffffff" text-anchor="middle">
+    Fichier texte conversation
+  </text>
+  <rect x="155" y="230" width="100" height="25" rx="5" fill="#00000050"/>
+  <text x="205" y="248" font-size="12" fill="#ffffff" text-anchor="middle">
+    .txt (latin-1)
+  </text>
+  
+  <!-- Flèche 1 -->
+  <path d="M 330 220 L 410 220" stroke="#c084fc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Étape 2: Embeddings -->
+  <rect x="420" y="150" width="250" height="140" rx="10" fill="#059669"/>
+  <text x="545" y="180" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    2. Embeddings
+  </text>
+  <text x="545" y="210" font-size="14" fill="#ffffff" text-anchor="middle">
+    SentenceTransformer
+  </text>
+  <rect x="465" y="230" width="160" height="25" rx="5" fill="#00000050"/>
+  <text x="545" y="248" font-size="12" fill="#ffffff" text-anchor="middle">
+    all-MiniLM-L6-v2
+  </text>
+  <text x="545" y="275" font-size="12" fill="#ffffff" text-anchor="middle">
+    Vecteurs: 384 dim
+  </text>
+  
+  <!-- Flèche 2 -->
+  <path d="M 670 220 L 750 220" stroke="#c084fc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Étape 3: Stockage -->
+  <rect x="760" y="150" width="250" height="140" rx="10" fill="#7c3aed"/>
+  <text x="885" y="180" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    3. Stockage
+  </text>
+  <text x="885" y="210" font-size="14" fill="#ffffff" text-anchor="middle">
+    PostgreSQL + pgvector
+  </text>
+  <rect x="795" y="230" width="180" height="25" rx="5" fill="#00000050"/>
+  <text x="885" y="248" font-size="12" fill="#ffffff" text-anchor="middle">
+    Table: embeddings
+  </text>
+  <text x="885" y="275" font-size="12" fill="#ffffff" text-anchor="middle">
+    ID, corpus, vector(384)
+  </text>
+  
+  <!-- PHASE 2 -->
+  <text x="100" y="370" font-size="24" font-weight="bold" fill="#c084fc">
+    Phase 2: Traitement des Requêtes (RAG)
+  </text>
+  
+  <!-- Question Utilisateur -->
+  <rect x="350" y="400" width="500" height="80" rx="10" fill="#ea580c"/>
+  <text x="600" y="430" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    Question Utilisateur
+  </text>
+  <text x="600" y="460" font-size="14" fill="#ffffff" text-anchor="middle" font-style="italic">
+    "Comment faire X ?"
+  </text>
+  
+  <!-- Flèche vers Retrieval -->
+  <path d="M 600 480 L 600 530" stroke="#c084fc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- RETRIEVAL -->
+  <rect x="250" y="540" width="700" height="180" rx="10" fill="#0891b2"/>
+  <text x="600" y="575" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    RETRIEVAL (Recherche)
+  </text>
+  <text x="280" y="610" font-size="14" fill="#ffffff">
+    1. Encoder la question en vecteur (384 dim)
+  </text>
+  <text x="280" y="640" font-size="14" fill="#ffffff">
+    2. Recherche par similarité cosinus dans PostgreSQL
+  </text>
+  <text x="280" y="670" font-size="14" fill="#ffffff">
+    3. Récupérer les 5 corpus les plus similaires
+  </text>
+  <rect x="280" y="685" width="640" height="25" rx="5" fill="#00000030"/>
+  <text x="600" y="702" font-size="12" fill="#ffffff" text-anchor="middle" font-family="monospace">
+    embedding &lt;-&gt; vector ORDER BY distance LIMIT 5
+  </text>
+  
+  <!-- Flèche vers Augmentation -->
+  <path d="M 600 720 L 600 770" stroke="#c084fc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- AUGMENTATION -->
+  <rect x="250" y="780" width="700" height="160" rx="10" fill="#6366f1"/>
+  <text x="600" y="815" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    AUGMENTATION (Contexte)
+  </text>
+  <text x="280" y="850" font-size="14" fill="#ffffff">
+    Construction du prompt avec contexte:
+  </text>
+  <rect x="280" y="865" width="640" height="60" rx="5" fill="#00000030"/>
+  <text x="300" y="885" font-size="12" fill="#86efac" font-family="monospace">Contexte:</text>
+  <text x="320" y="905" font-size="12" fill="#ffffff" font-family="monospace">- Corpus 1, 2, 3... (+ distances)</text>
+  <text x="300" y="920" font-size="12" fill="#86efac" font-family="monospace">Question: [user_query]</text>
+  
+  <!-- Flèche vers Generation -->
+  <path d="M 600 940 L 600 990" stroke="#c084fc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- GENERATION -->
+  <rect x="250" y="1000" width="700" height="140" rx="10" fill="#db2777"/>
+  <text x="600" y="1035" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    GENERATION (LLM)
+  </text>
+  <text x="280" y="1070" font-size="14" fill="#ffffff">
+    Modèle: Groq (llama-3.1-8b-instant)
+  </text>
+  <text x="280" y="1095" font-size="14" fill="#ffffff">
+    Rôle: Générer une réponse basée uniquement sur le contexte
+  </text>
+  <rect x="280" y="1105" width="640" height="25" rx="5" fill="#00000030"/>
+  <text x="600" y="1122" font-size="12" fill="#86efac" text-anchor="middle" font-family="monospace">
+    💬 Réponse générée en français
+  </text>
+  
+  <!-- Technologies -->
+  <text x="100" y="1210" font-size="24" font-weight="bold" fill="#c084fc">
+    Technologies Utilisées
+  </text>
+  
+  <rect x="100" y="1230" width="220" height="100" rx="10" fill="#1e293b"/>
+  <text x="210" y="1260" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    PostgreSQL
+  </text>
+  <text x="210" y="1285" font-size="12" fill="#9ca3af" text-anchor="middle">
+    + pgvector
+  </text>
+  
+  <rect x="350" y="1230" width="220" height="100" rx="10" fill="#1e293b"/>
+  <text x="460" y="1260" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    HuggingFace
+  </text>
+  <text x="460" y="1285" font-size="12" fill="#9ca3af" text-anchor="middle">
+    SentenceTransformer
+  </text>
+  
+  <rect x="600" y="1230" width="220" height="100" rx="10" fill="#1e293b"/>
+  <text x="710" y="1260" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    Groq API
+  </text>
+  <text x="710" y="1285" font-size="12" fill="#9ca3af" text-anchor="middle">
+    LLM rapide
+  </text>
+  
+  <rect x="850" y="1230" width="220" height="100" rx="10" fill="#1e293b"/>
+  <text x="960" y="1260" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    LangChain
+  </text>
+  <text x="960" y="1285" font-size="12" fill="#9ca3af" text-anchor="middle">
+    Orchestration
+  </text>
+  
+  <!-- Flux final -->
+  <rect x="100" y="1350" width="1000" height="40" rx="5" fill="#1e293b50"/>
+  <text x="600" y="1375" font-size="12" fill="#d1d5db" text-anchor="middle">
+    📊 Question → Embedding → Recherche vectorielle → Top 5 corpus → Prompt augmenté → Groq LLM → Réponse
+  </text>
+  
+  <!-- Définitions des flèches -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#c084fc"/>
+    </marker>
+  </defs>
+</svg>
